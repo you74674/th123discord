@@ -60,6 +60,7 @@ main functions
 ########
 '''
 '''
+TODO: This function is not complete yet.
 argument:
     host: (host_ip, host_port)
     client: (client_ip, client_port)
@@ -127,7 +128,7 @@ return:
         is hosting, is matching, is watchable
             0701...: hosting, not matching, watchable
             0700...: hosting, not matching, not watchable
-            0801...: hosting, matching, unknown
+            0801...: hosting, matching, unknown(since hole_punch is not complete yet, assume not watchable)
                 hole_punch return:
                     0701 or 0700, same as above.
             else: timeout, assume not hosting
@@ -153,9 +154,10 @@ def host_status(ip, port, timeout=DEFAULT_TIMEOUT, is_sokuroll=False):
     elif packet.startswith(b'\x07\x00'):
         return True, False, False
     elif packet.startswith(b'\x08\x01'):
-        recv_data = hole_punch((ip, port), btoa(packet[7:13]), timeout, is_sokuroll)
-        print(recv_data)
-        return True, True, (recv_data[1]==b'\x01')
+        #recv_data = hole_punch((ip, port), btoa(packet[7:13]), timeout, is_sokuroll)
+        #print(recv_data)
+        #return True, True, (recv_data[1]==b'\x01')
+        return True, True, False
     else:
         return False, False, False
 
